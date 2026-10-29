@@ -1,0 +1,3 @@
+- Phone is offline instead of Re-pair: sends stay queued and go when the phone is back.
+- Phone rejoins the relay quickly after sleep or a network change.
+- First F-Droid build: no Google Play code or billing, free for everyone.

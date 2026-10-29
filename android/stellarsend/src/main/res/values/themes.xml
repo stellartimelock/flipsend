@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark surfaces with light text. forceDarkAllowed is off so an OEM dark
+         mode cannot turn this light text dark and leave a blank-looking screen. -->
+    <style name="Theme.StellarSend" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="isLightTheme">false</item>
+        <item name="colorPrimary">@color/space_accent</item>
+        <item name="colorOnPrimary">@color/space_on_accent</item>
+        <item name="colorSecondary">@color/space_accent</item>
+        <item name="colorOnSecondary">@color/space_on_accent</item>
+        <item name="colorSurface">@color/space_card</item>
+        <item name="colorOnSurface">@color/space_text</item>
+        <item name="colorOnSurfaceVariant">@color/space_muted</item>
+        <item name="colorOnBackground">@color/space_text</item>
+        <item name="android:colorBackground">@color/space_bg</item>
+        <item name="android:windowBackground">@color/space_bg</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:enforceStatusBarContrast">false</item>
+        <item name="android:enforceNavigationBarContrast">false</item>
+        <item name="android:forceDarkAllowed">false</item>
+        <item name="android:isLightTheme">false</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">always</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:textColor">@color/space_text</item>
+        <item name="android:textColorPrimary">@color/space_text</item>
+        <item name="android:textColorSecondary">@color/space_muted</item>
+        <item name="android:textColorHint">@color/space_muted</item>
+        <item name="android:editTextColor">@color/space_text</item>
+        <item name="materialAlertDialogTheme">@style/Theme.StellarSend.Dialog</item>
+        <item name="alertDialogTheme">@style/Theme.StellarSend.Dialog</item>
+    </style>
+
+    <style name="Theme.StellarSend.Transparent" parent="Theme.StellarSend">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <style name="Theme.StellarSend.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorPrimary">@color/space_accent</item>
+        <item name="colorOnPrimary">@color/space_on_accent</item>
+        <item name="colorSurface">@color/space_card</item>
+        <item name="colorOnSurface">@color/space_text</item>
+        <item name="colorOnSurfaceVariant">@color/space_muted</item>
+        <item name="android:textColor">@color/space_text</item>
+        <item name="android:textColorPrimary">@color/space_text</item>
+        <item name="android:textColorSecondary">@color/space_muted</item>
+        <item name="android:textColorHint">@color/space_muted</item>
+        <item name="android:forceDarkAllowed">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+</resources>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pcScreenRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/space_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/pcScreenTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#CC07060F"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="8dp">
+
+        <Button
+            android:id="@+id/pcScreenStop"
+            style="@style/Widget.Stellar.Quiet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Disconnect"
+            android:minHeight="48dp"
+            android:text="Disconnect"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/pcScreenStatus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:text="Waiting for Allow on the computer."
+            android:textColor="@color/space_text"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/pcKeyboard"
+            style="@style/Widget.Stellar.Quiet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Keyboard"
+            android:minHeight="48dp"
+            android:text="Keyboard"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/pcScreenImage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:contentDescription="Computer screen"
+        android:scaleType="matrix" />
+
+    <LinearLayout
+        android:id="@+id/pcKeyboardBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#CC07060F"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/pcScreenType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/space_card"
+            android:hint="Type, then send"
+            android:imeOptions="actionSend"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:textColor="@color/space_text"
+            android:textColorHint="@color/space_muted"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/pcScreenSendText"
+            style="@style/Widget.Stellar.Quiet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:contentDescription="Send typed text"
+            android:minHeight="48dp"
+            android:text="Send"
+            android:textSize="16sp" />
+    </LinearLayout>
+</LinearLayout>

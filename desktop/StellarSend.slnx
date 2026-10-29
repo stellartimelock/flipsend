@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/StellarSend.App/StellarSend.App.csproj" />
+    <Project Path="src/StellarSend.Core/StellarSend.Core.csproj" />
+    <Project Path="src/StellarSend.Relay/StellarSend.Relay.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/StellarSend.App.Tests/StellarSend.App.Tests.csproj" />
+    <Project Path="tests/StellarSend.Core.Tests/StellarSend.Core.Tests.csproj" />
+    <Project Path="tests/StellarSend.Relay.Tests/StellarSend.Relay.Tests.csproj" />
+  </Folder>
+</Solution>

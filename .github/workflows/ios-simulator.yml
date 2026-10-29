@@ -1,0 +1,122 @@
+# iOS simulator build and unit tests.
+#
+# Triggered manually (Actions tab) or on push to any cursor/* branch.
+# Full App Store signing and TestFlight come later (see PR notes).
+#
+# Secrets required (add in repo Settings → Secrets → Actions):
+#   None yet — signing is skipped for simulator builds.
+#
+# Secrets needed later (add before TestFlight submission):
+#   IOS_DISTRIBUTION_CERT_P12    — Apple Distribution certificate (.p12, base64)
+#   IOS_DISTRIBUTION_CERT_PWD   — Password for the .p12
+#   IOS_PROVISIONING_PROFILE    — AdHoc/AppStore .mobileprovision (base64)
+#   APP_STORE_CONNECT_API_KEY   — App Store Connect API key JSON (base64)
+#
+# What a maintainer must do before this workflow can produce a signed IPA:
+#   1. Enroll in the Apple Developer Program (https://developer.apple.com/programs/).
+#   2. Create an App ID "org.stellartimelock.flipsend.ios" in App Store Connect.
+#   3. Generate a Distribution certificate and provisioning profile.
+#   4. Add the three signing secrets above to this repo.
+#   5. Add an App Store Connect API key and add APP_STORE_CONNECT_API_KEY.
+#   6. Update DEVELOPMENT_TEAM in iosApp.xcodeproj/project.pbxproj with the real team ID.
+#   See: https://developer.apple.com/help/app-store-connect/
+
+name: iOS simulator build and tests
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'cursor/**'
+    paths:
+      - 'shared/**'
+      - 'composeApp/**'
+      - 'iosApp/**'
+      - 'gradle/**'
+      - 'settings.gradle.kts'
+      - 'build.gradle.kts'
+      - '.github/workflows/ios-simulator.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ios-simulator-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ios-build:
+    # macos-15 uses Xcode 16 and an Apple Silicon runner (arm64).
+    # iosSimulatorArm64 framework from Kotlin/Native matches natively.
+    runs-on: macos-15
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java (required by Gradle / Kotlin compiler)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Select Xcode 16
+        run: sudo xcode-select -s /Applications/Xcode_16.2.app
+
+      # ── Kotlin/Native shared module tests (JVM host) ────────────────────
+      - name: Run shared module JVM tests
+        run: ./gradlew :shared:jvmTest --stacktrace
+
+      # ── Build the Compose Multiplatform iOS framework ───────────────────
+      - name: Assemble ComposeApp iosSimulatorArm64 debug framework
+        run: ./gradlew :composeApp:linkDebugFrameworkIosSimulatorArm64 --stacktrace
+
+      # ── Build the iOS app for the simulator (no signing) ────────────────
+      - name: Build iosApp for simulator
+        run: |
+          set -euo pipefail
+          xcodebuild \
+            -project iosApp/iosApp.xcodeproj \
+            -scheme   iosApp \
+            -configuration Debug \
+            -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGN_IDENTITY="" \
+            PROVISIONING_PROFILE="" \
+            build \
+            | tee /tmp/xcodebuild.log \
+            | xcpretty || (cat /tmp/xcodebuild.log && exit 1)
+
+      - name: Upload build log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xcodebuild-log
+          path: /tmp/xcodebuild.log
+          retention-days: 7
+
+  android-regression:
+    # Keep the existing Android build healthy on every push.
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: 'platform-tools'
+      - name: Install Android SDK
+        run: |
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager "platforms;android-35" "build-tools;35.0.0"
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Android core tests + assemble
+        working-directory: android
+        run: ./gradlew clean :core:test :stellarsend:assemble :app:assembleDebug --stacktrace

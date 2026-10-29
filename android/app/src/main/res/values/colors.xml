@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Design B tokens. Restyle C only changes grouping, not the palette. -->
+    <color name="dash_bg">#07060F</color>
+    <color name="dash_surface">#110F1A</color>
+    <color name="dash_cream">#F6F1E7</color>
+    <color name="dash_gold">#F5C842</color>
+    <color name="dash_gold_ink">#1A1400</color>
+    <color name="dash_teal">#5EEAD4</color>
+    <color name="dash_muted">#C9C0B2</color>
+    <color name="dash_note">#16141F</color>
+    <color name="dash_hairline">#12F6F1E7</color>
+    <color name="dash_stroke">#38F6F1E7</color>
+    <color name="dash_teal_fill">#1F5EEAD4</color>
+    <color name="dash_danger">#F2A3A3</color>
+    <color name="dash_surface_stroke">#14F6F1E7</color>
+</resources>

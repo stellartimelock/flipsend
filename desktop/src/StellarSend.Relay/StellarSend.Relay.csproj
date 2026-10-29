@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>StellarSend.Relay</RootNamespace>
+    <AssemblyName>StellarSend.Relay</AssemblyName>
+    <Description>Small outbound relay for FlipSend. It forwards ciphertext and stores monthly usage counters only.</Description>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StellarSend.Core\StellarSend.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\docs\privacy.html">
+      <LogicalName>privacy.html</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\relay\tiers.json">
+      <LogicalName>tiers.json</LogicalName>
+    </EmbeddedResource>
+    <Content Include="..\..\..\relay\tiers.json" Link="tiers.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

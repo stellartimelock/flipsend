@@ -1,0 +1,18 @@
+# Render Blueprint. The marketing site is a free static site.
+# The relay is the existing Docker web service stellar-send-relay
+# (https://stellar-send-relay.onrender.com, socket wss://stellar-send-relay.onrender.com/v1).
+# The name is the live service name, so a blueprint sync keeps that URL.
+# Env vars stay in the Render dashboard. Do not point this static site at the relay.
+staticSites:
+  - name: flipsend-site
+    buildCommand: "true"
+    publishPath: ./site
+
+services:
+  - type: web
+    name: stellar-send-relay
+    runtime: docker
+    dockerfilePath: ./relay/Dockerfile
+    dockerContext: .
+    healthCheckPath: /healthz
+    autoDeployTrigger: commit

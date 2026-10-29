@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="remote_desktop_label">Remote desktop</string>
+    <string name="remote_desktop_line">See your computer\'s screen and control it from this phone.</string>
+    <string name="settings_lead">Remote desktop is the headline perk. TV, folders, and received files are here too.</string>
+    <string name="phone_control_detail">This lets the computer tap and type on this phone. Remote desktop does not use it.</string>
+    <string name="channel_remote">Remote desktop (beta)</string>
+    <string name="remote_desktop_perk">Remote desktop is included. See and use your PC from this phone.</string>
+</resources>

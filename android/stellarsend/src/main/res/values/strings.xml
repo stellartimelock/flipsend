@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="send_to_pc">Send to PC</string>
+    <string name="listening">FlipSend is ready to receive</string>
+    <string name="channel_transfers">Transfers</string>
+    <string name="channel_consent">Approval</string>
+    <string name="channel_installs">App installs</string>
+    <string name="channel_listening">Background listening</string>
+    <string name="channel_listening_description">Shown while FlipSend stays connected in the background. Hiding this does not hide file transfer notifications.</string>
+    <string name="remote_control_service_description">FlipSend uses this so your paired computer can tap, swipe, and type on this phone after you tap Allow. Viewing the computer does not use this.</string>
+    <string name="channel_remote">Computer view</string>
+    <string name="battery_opt_title">Keep FlipSend connected overnight</string>
+    <string name="battery_opt_body">Android limits background apps to save battery. Tapping OK opens a system screen where you can select \"Don\'t optimise\" for FlipSend. This keeps the connection alive so your PC can send files and install apps while the phone screen is off. You can undo this in Battery settings at any time.</string>
+    <string name="oneplus_bg_title">OnePlus: allow background activity</string>
+    <string name="oneplus_bg_body">Open Settings → Apps → FlipSend → Battery → Allow background activity. This stops OxygenOS from closing the connection when the screen is off.</string>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="safe_drawing" type="id" />
+    <item name="received_title" type="id" />
+    <item name="received_back" type="id" />
+    <item name="received_rows" type="id" />
+    <item name="auto_install_updates" type="id" />
+    <item name="install_unknown_apps" type="id" />
+    <item name="install_unknown_apps_status" type="id" />
+    <item name="text_viewer_body" type="id" />
+    <item name="receive_status" type="id" />
+    <item name="receive_sender" type="id" />
+    <item name="receive_bar" type="id" />
+    <item name="receive_rows" type="id" />
+    <item name="receive_summary" type="id" />
+    <item name="receive_attention" type="id" />
+    <item name="receive_install_all" type="id" />
+    <item name="apps_title" type="id" />
+    <item name="apps_rows" type="id" />
+    <item name="received_install_all" type="id" />
+</resources>

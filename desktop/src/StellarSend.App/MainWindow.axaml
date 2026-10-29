@@ -1,0 +1,348 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:StellarSend.App"
+        x:Class="StellarSend.App.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="FlipSend"
+        Width="480" Height="720"
+        MinWidth="480" MinHeight="720"
+        Background="#07060F"
+        WindowStartupLocation="CenterScreen"
+        CanResize="True">
+  <Grid>
+    <Grid IsVisible="{Binding !ShowSettings}" RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,Auto" Margin="16,12,16,12">
+
+      <Grid Name="HomeHeader" ColumnDefinitions="*,Auto,Auto">
+        <TextBlock Text="FlipSend" FontSize="26" FontWeight="Bold" VerticalAlignment="Center"
+                   Foreground="#F6F1E7" />
+        <Button Grid.Column="1" Name="RepairButton" Content="Re-pair (show QR)" Classes="ghost" FontSize="16"
+                Margin="0,0,8,0" VerticalAlignment="Center"
+                Command="{Binding RotateCommand}" IsVisible="{Binding HasPeer}"
+                AutomationProperties.Name="Re-pair and show the QR code" />
+        <Button Grid.Column="2" Content="···" Classes="overflow"
+                AutomationProperties.Name="More">
+          <Button.Flyout>
+            <MenuFlyout Placement="BottomEdgeAlignedRight">
+              <MenuItem Header="Settings" Command="{Binding OpenSettingsCommand}"
+                        AutomationProperties.Name="Settings" />
+              <MenuItem Name="DisconnectPhoneItem" Header="Disconnect phone"
+                        Command="{Binding UnpairCommand}"
+                        IsVisible="{Binding HasPeer}"
+                        AutomationProperties.Name="Disconnect phone" />
+            </MenuFlyout>
+          </Button.Flyout>
+        </Button>
+      </Grid>
+
+      <StackPanel Grid.Row="1" Margin="0,8,0,0" Spacing="4">
+        <Grid Name="ConnectionRow" ColumnDefinitions="Auto,Auto,*">
+          <Panel VerticalAlignment="Center" Margin="0,0,8,0">
+            <Ellipse Width="10" Height="10" Fill="#5EEAD4" IsVisible="{Binding ConnectionLinked}" />
+            <Ellipse Width="10" Height="10" Fill="#F07167" IsVisible="{Binding !ConnectionLinked}" />
+          </Panel>
+          <TextBlock Grid.Column="1" Name="HeaderStatusText" Text="{Binding ConnectionLine}"
+                     FontSize="16" FontWeight="SemiBold" Foreground="#F6F1E7"
+                     TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0"
+                     AutomationProperties.Name="Connection status" />
+          <TextBlock Grid.Column="2" Name="MetaLineText" Text="{Binding MetaLine}" Classes="meta"
+                     TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right"
+                     AutomationProperties.Name="Status line" />
+        </Grid>
+        <Button Name="DetailsToggle" Content="Details" Classes="ghost" FontSize="16"
+                Command="{Binding ToggleDetailsCommand}"
+                IsVisible="{Binding HasDetails}"
+                AutomationProperties.Name="Details" />
+        <TextBlock Text="{Binding DetailsText}" Classes="muted"
+                   IsVisible="{Binding ShowDetails}"
+                   AutomationProperties.Name="Technical details" />
+      </StackPanel>
+
+      <StackPanel Grid.Row="2" Margin="0,10,0,0" Spacing="8">
+        <Border Classes="card" IsVisible="{Binding BeingControlled}">
+          <StackPanel Spacing="6">
+            <TextBlock Text="Remote desktop active - Disconnect" FontSize="20" FontWeight="Bold" />
+            <TextBlock Text="Tap Disconnect to stop." Classes="muted" />
+            <Button Content="Disconnect" Classes="accent" Command="{Binding StopRemoteCommand}"
+                    HorizontalAlignment="Stretch" AutomationProperties.Name="Disconnect remote desktop" />
+          </StackPanel>
+        </Border>
+        <Border Name="ErrorBanner" Classes="error"
+                IsVisible="{Binding HasErrorBanner}" AutomationProperties.Name="Error banner">
+          <StackPanel Spacing="4">
+            <TextBlock Text="{Binding ErrorTitle}" FontSize="16" FontWeight="Bold" />
+            <TextBlock Text="{Binding ErrorDetail}" Classes="muted" />
+          </StackPanel>
+        </Border>
+      </StackPanel>
+
+      <StackPanel Grid.Row="3" Name="SendReceiveBlock" Margin="0,10,0,0" Spacing="6">
+        <TextBlock Text="SEND" Classes="kicker" />
+        <Button Name="SendRow" Classes="send" Command="{Binding ChooseFileCommand}"
+                AutomationProperties.Name="Send file to phone">
+          <Grid ColumnDefinitions="Auto,*,Auto">
+            <Border Classes="chipgold">
+              <Viewbox Width="20" Height="20">
+                <Canvas Width="24" Height="24">
+                  <Path Stroke="#1A1400" StrokeThickness="2" StrokeLineCap="Round" Data="M12,4 L12,16" />
+                  <Path Stroke="#1A1400" StrokeThickness="2" StrokeLineCap="Round" StrokeJoin="Round" Data="M7,11 L12,16 L17,11" />
+                  <Path Stroke="#1A1400" StrokeThickness="2" StrokeLineCap="Round" Data="M4,20 L20,20" />
+                </Canvas>
+              </Viewbox>
+            </Border>
+            <TextBlock Grid.Column="1" Text="Send" FontSize="20" FontWeight="Bold"
+                       Foreground="#1A1400" VerticalAlignment="Center" Margin="12,0,8,0" />
+            <TextBlock Grid.Column="2" Text="File to phone" FontSize="16" Foreground="#1A1400"
+                       VerticalAlignment="Center" />
+          </Grid>
+        </Button>
+        <Border Classes="card" Name="DropZone" Padding="12,0">
+          <StackPanel>
+            <Button Name="ReceiveRow" Classes="row" Command="{Binding OpenReceivedCommand}"
+                    AutomationProperties.Name="Received files">
+              <Grid ColumnDefinitions="Auto,*,Auto" MinHeight="48">
+                <Border Classes="chip" VerticalAlignment="Center">
+                  <Viewbox Width="18" Height="18">
+                    <Canvas Width="24" Height="24">
+                      <Path Stroke="#F6F1E7" StrokeThickness="2" StrokeLineCap="Round" Data="M4,3 H20" />
+                      <Path Stroke="#F6F1E7" StrokeThickness="2" StrokeLineCap="Round" Data="M12,8 L12,20" />
+                      <Path Stroke="#F6F1E7" StrokeThickness="2" StrokeLineCap="Round" StrokeJoin="Round" Data="M7,15 L12,20 L17,15" />
+                    </Canvas>
+                  </Viewbox>
+                </Border>
+                <TextBlock Grid.Column="1" Text="Receive" FontSize="20" FontWeight="Bold"
+                           VerticalAlignment="Center" Margin="12,0,8,0" />
+                <TextBlock Grid.Column="2" Text="From your phone" Classes="muted" VerticalAlignment="Center" />
+              </Grid>
+            </Button>
+            <Border Classes="hairline" />
+            <Button Name="SendTextRow" Classes="row" Command="{Binding SendTextCommand}"
+                    AutomationProperties.Name="Send text">
+              <Grid ColumnDefinitions="Auto,*" MinHeight="48">
+                <Border Classes="chip" VerticalAlignment="Center">
+                  <TextBlock Text="Aa" FontSize="13" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <TextBlock Grid.Column="1" Text="Send text" VerticalAlignment="Center" Margin="12,0,0,0" />
+              </Grid>
+            </Button>
+            <TextBox Text="{Binding OutgoingText}" Watermark="Add a note with your next send (optional)…"
+                     AcceptsReturn="True" MinHeight="48" AutomationProperties.Name="Text to send" />
+            <Button Name="SendClipboardRow" Classes="row" Command="{Binding SendClipboardCommand}"
+                    AutomationProperties.Name="Send clipboard">
+              <Grid ColumnDefinitions="Auto,*" MinHeight="48">
+                <Border Classes="chip" VerticalAlignment="Center">
+                  <TextBlock Text="⧉" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <TextBlock Grid.Column="1" Text="Send copied text" VerticalAlignment="Center" Margin="12,0,0,0" />
+              </Grid>
+            </Button>
+            <Border Classes="hairline" />
+            <Button Name="RemoteDesktopRow" Classes="row" Command="{Binding OpenPhoneScreenCommand}"
+                    AutomationProperties.Name="Remote desktop">
+              <Grid ColumnDefinitions="Auto,*" MinHeight="48">
+                <Border Classes="chip" VerticalAlignment="Center">
+                  <TextBlock Text="▢" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <TextBlock Grid.Column="1" Text="Remote desktop" VerticalAlignment="Center" Margin="12,0,0,0" />
+              </Grid>
+            </Button>
+            <Border Classes="hairline" />
+            <Button Name="AppsRow" Classes="row" Command="{Binding SendApkCommand}"
+                    AutomationProperties.Name="Send APK to phone">
+              <Grid ColumnDefinitions="Auto,*" MinHeight="48">
+                <Border Classes="chip" VerticalAlignment="Center">
+                  <TextBlock Text="▣" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <TextBlock Grid.Column="1" Text="Apps" VerticalAlignment="Center" Margin="12,0,0,0" />
+              </Grid>
+            </Button>
+            <Border Classes="card" Margin="0,8,0,8" Padding="12,8" IsVisible="{Binding HasReceivedText}">
+              <StackPanel Spacing="6">
+                <TextBlock Text="Received text" FontSize="16" FontWeight="SemiBold" />
+                <TextBox Text="{Binding ReceivedPreview}" IsReadOnly="True" AcceptsReturn="True"
+                         TextWrapping="Wrap" MinHeight="48" AutomationProperties.Name="Received text" />
+                <Button Content="Copy" Classes="accent" HorizontalAlignment="Stretch"
+                        Command="{Binding CopyReceivedCommand}" AutomationProperties.Name="Copy received text" />
+              </StackPanel>
+            </Border>
+          </StackPanel>
+        </Border>
+      </StackPanel>
+
+      <Border Grid.Row="4" Name="PairCard" Classes="pair" Margin="0,10,0,0"
+              IsVisible="{Binding ShowPairCard}" AutomationProperties.Name="Pairing card">
+        <Grid ColumnDefinitions="Auto,*">
+          <Border Classes="qrplate">
+            <Image Source="{Binding QrImage}" Stretch="Uniform"
+                   AutomationProperties.Name="Pairing code" />
+          </Border>
+          <StackPanel Grid.Column="1" Margin="14,0,0,0" Spacing="2">
+            <TextBlock Text="PAIR" Classes="kicker" />
+            <TextBlock Text="Show code to phone" FontWeight="Bold" FontSize="20" />
+            <Button Content="Enlarge" Classes="ghost"
+                    Command="{Binding ShowQrCommand}" AutomationProperties.Name="Enlarge pairing code" />
+            <StackPanel Orientation="Horizontal" Spacing="12">
+              <Button Content="Scan a code" Classes="ghost" FontSize="16"
+                      Command="{Binding PairFromCodeCommand}" AutomationProperties.Name="Scan a pairing code" />
+              <Button Content="Type a code" Classes="ghost" FontSize="16"
+                      Command="{Binding PairFromCodeCommand}" AutomationProperties.Name="Type a pairing code" />
+            </StackPanel>
+          </StackPanel>
+        </Grid>
+      </Border>
+
+      <Border Grid.Row="5" Name="TransfersCard" Classes="card" Margin="0,10,0,0"
+              MinHeight="120" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+              AutomationProperties.Name="Recent transfers">
+        <Grid RowDefinitions="Auto,*">
+          <StackPanel Spacing="4">
+            <TextBlock Text="TRANSFERS" Classes="kicker" />
+            <TextBlock Text="Nothing sent yet." Classes="muted" IsVisible="{Binding !HasTransfers}" />
+          </StackPanel>
+          <ScrollViewer Grid.Row="1" Name="TransfersScroll"
+                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                        HorizontalScrollBarVisibility="Disabled"
+                        VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Transfers}" HorizontalAlignment="Stretch">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="vm:TransferRow">
+                  <Grid ColumnDefinitions="*,Auto" Margin="0,1,0,1">
+                    <StackPanel Spacing="0">
+                      <TextBlock Text="{Binding Title}" FontSize="16" FontWeight="SemiBold"
+                                 TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                      <TextBlock Text="{Binding Detail}" Classes="muted"
+                                 TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                      <ProgressBar Minimum="0" Maximum="100" Value="{Binding Percent}"
+                                   IsVisible="{Binding ShowProgress}" Margin="0,4,0,0" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="4" VerticalAlignment="Center">
+                      <Button Content="Cancel" Classes="ghost" FontSize="16"
+                              Command="{Binding CancelCommand}" IsVisible="{Binding CanCancel}"
+                              AutomationProperties.Name="Cancel transfer" />
+                      <Button Content="Retry" Classes="ghost" FontSize="16"
+                              Command="{Binding RetryCommand}" IsVisible="{Binding CanRetry}"
+                              AutomationProperties.Name="Retry transfer" />
+                      <Button Content="Copy" Classes="ghost" FontSize="16"
+                              Command="{Binding CopyCommand}" IsVisible="{Binding CanCopy}"
+                              AutomationProperties.Name="Copy received text" />
+                    </StackPanel>
+                  </Grid>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </ScrollViewer>
+        </Grid>
+      </Border>
+
+      <TextBlock Grid.Row="6" Name="HomeFooter" Text="Send it to your phone · More via ···" Classes="muted"
+                 HorizontalAlignment="Center" Margin="0,8,0,0" />
+    </Grid>
+
+    <ScrollViewer IsVisible="{Binding ShowSettings}" HorizontalScrollBarVisibility="Disabled">
+      <StackPanel Margin="16" Spacing="12">
+        <Button Content="Back" Classes="quiet" HorizontalAlignment="Left"
+                Command="{Binding CloseSettingsCommand}" AutomationProperties.Name="Back to Home" />
+        <TextBlock Text="Settings" FontSize="26" FontWeight="Bold" />
+
+        <Border Classes="card">
+          <StackPanel Spacing="8">
+            <TextBlock Text="Remote desktop" FontSize="20" FontWeight="SemiBold" />
+            <TextBlock Text="See and use this PC from the paired phone." Classes="muted" />
+            <CheckBox IsChecked="{Binding AlwaysAllowThisPhone}" IsVisible="{Binding HasPeer}"
+                      AutomationProperties.Name="Always allow this phone">
+              <TextBlock Text="Always allow this phone" FontSize="16" />
+            </CheckBox>
+          </StackPanel>
+        </Border>
+
+        <Border Classes="card">
+          <StackPanel Spacing="8">
+            <Button Content="Send to iPhone" Classes="quiet" HorizontalAlignment="Stretch"
+                    Command="{Binding OpenOnWebCommand}" AutomationProperties.Name="Open on web" />
+            <Button Content="Cast to TV" Classes="quiet" HorizontalAlignment="Stretch"
+                    Command="{Binding CastToTvCommand}" AutomationProperties.Name="Cast to TV" />
+            <TextBlock Text="{Binding CastStatus}" Classes="muted" IsVisible="{Binding HasCastStatus}"
+                       AutomationProperties.Name="Cast to TV status" />
+            <Button Content="Choose received folder" Classes="quiet" HorizontalAlignment="Stretch"
+                    Command="{Binding ChooseInboxCommand}" AutomationProperties.Name="Choose received folder" />
+            <TextBlock Text="{Binding InboxText}" Classes="muted" />
+          </StackPanel>
+        </Border>
+
+        <Border Classes="card">
+          <StackPanel Spacing="8">
+            <TextBox Text="{Binding ManualHost}" Watermark="Phone local IP, optional"
+                     AutomationProperties.Name="Manual phone IP" />
+            <TextBox Text="{Binding RelayUrl}" Watermark="Relay address (wss:// on port 443)"
+                     AutomationProperties.Name="Relay address" />
+            <TextBlock Text="Wi-Fi first, then the relay." Classes="muted" />
+            <CheckBox IsChecked="{Binding StartWithWindows}"
+                      AutomationProperties.Name="Start with Windows">
+              <TextBlock Text="Start with Windows" />
+            </CheckBox>
+            <CheckBox IsChecked="{Binding BringWindowToFrontOnTransfer}"
+                      AutomationProperties.Name="Bring window to front on transfer">
+              <TextBlock Text="Bring window to front on transfer" />
+            </CheckBox>
+            <TextBlock Text="Off: files stay in the background." Classes="muted" />
+            <CheckBox IsChecked="{Binding ShellMenu}"
+                      AutomationProperties.Name="Add Explorer Send to phone">
+              <TextBlock Text="Add Explorer &quot;Send to phone&quot;" />
+            </CheckBox>
+          </StackPanel>
+        </Border>
+
+        <Border Classes="card" IsVisible="{Binding HasPeer}">
+          <StackPanel Spacing="8">
+            <Button Content="Re-scan / re-pair" Classes="quiet" HorizontalAlignment="Stretch"
+                    Command="{Binding RotateCommand}" AutomationProperties.Name="Re-scan / re-pair with new keys" />
+            <Button Content="Forget" Classes="quiet" HorizontalAlignment="Stretch"
+                    Command="{Binding UnpairCommand}" AutomationProperties.Name="Unpair" />
+          </StackPanel>
+        </Border>
+
+        <Border Classes="card">
+          <StackPanel Spacing="8">
+            <TextBlock Text="Terminal" FontWeight="SemiBold" />
+            <TextBlock Text="Let the paired phone run a command here. Off until you turn it on." Classes="muted" />
+            <CheckBox IsChecked="{Binding TerminalEnabled}"
+                      AutomationProperties.Name="Let the paired phone run commands">
+              <TextBlock Text="Let the paired phone run commands" />
+            </CheckBox>
+            <CheckBox IsChecked="{Binding TerminalAllowlist}"
+                      AutomationProperties.Name="Terminal allowlist only">
+              <TextBlock Text="Allowlist only" />
+            </CheckBox>
+            <TextBox Text="{Binding TerminalDraft}" Watermark="Command to allow"
+                     AutomationProperties.Name="Command to allow" />
+            <Button Content="Add command" Classes="quiet" Command="{Binding AddTerminalCommand}"
+                    AutomationProperties.Name="Add allowed command" />
+            <ItemsControl ItemsSource="{Binding TerminalAllowRows}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="vm:AllowRow">
+                  <Grid ColumnDefinitions="*,Auto" Margin="0,4,0,0">
+                    <TextBlock Text="{Binding Command}" VerticalAlignment="Center" Margin="0,0,8,0" FontSize="16" />
+                    <Button Grid.Column="1" Content="Remove" Classes="quiet" VerticalAlignment="Top"
+                            Command="{Binding RemoveCommand}"
+                            AutomationProperties.Name="Remove allowed command" />
+                  </Grid>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <TextBlock Text="No commands on the allowlist yet." Classes="muted"
+                       IsVisible="{Binding !HasTerminalAllow}" />
+          </StackPanel>
+        </Border>
+
+        <Border Classes="card">
+          <StackPanel Spacing="8">
+            <TextBlock Text="Stellar Vault" FontWeight="SemiBold" />
+            <TextBlock Text="A paired phone can put a password on this clipboard. It clears after 45 seconds." Classes="muted" />
+            <TextBlock Text="{Binding RemoteStatus}" FontSize="16" AutomationProperties.Name="Remote status" />
+          </StackPanel>
+        </Border>
+
+        <TextBlock Text="FlipSend by StellarTimeLock" Classes="muted" Margin="0,8,0,8" />
+      </StackPanel>
+    </ScrollViewer>
+  </Grid>
+</Window>

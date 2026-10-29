@@ -1,0 +1,8 @@
+{
+  "name": "flipsend-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/interop.test.mjs"
+  }
+}

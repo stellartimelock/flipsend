@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/stlPromoRow"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/stlPromoSite"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:minHeight="48dp"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="1"
+        android:background="@drawable/dash_promo_site"
+        android:clickable="true"
+        android:contentDescription="StellarTimeLock"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_row_hourglass" />
+
+        <TextView
+            android:id="@+id/stlPromoTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="StellarTimeLock"
+            android:textColor="#FFFFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/stlPromo"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:minHeight="48dp"
+        android:layout_weight="1"
+        android:background="@drawable/dash_promo_play"
+        android:clickable="true"
+        android:contentDescription="Play Store"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_row_play" />
+
+        <TextView
+            android:id="@+id/stlPromoOpen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Play Store"
+            android:textColor="@color/dash_cream"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/stlPromoLine"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Lock XLM until the future arrives."
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/stlPromoGold"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/dash_gold"
+        android:visibility="gone" />
+</LinearLayout>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-files-path name="outbox" path="stellar-outbox/" />
+    <external-path name="stl_backups" path="StellarTimeLock backups/" />
+    <external-path name="legacy_flipsend" path="FlipSend/" />
+    <external-path name="legacy_stellarsend" path="Download/StellarSend/" />
+    <files-path name="inbox" path="inbox/" />
+    <cache-path name="outgoing" path="outgoing/" />
+    <cache-path name="handoff" path="handoff/" />
+</paths>

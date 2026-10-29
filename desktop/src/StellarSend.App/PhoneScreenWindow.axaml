@@ -1,0 +1,47 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:StellarSend.App"
+        x:Class="StellarSend.App.PhoneScreenWindow"
+        x:DataType="vm:MainViewModel"
+        Title="Phone screen"
+        Width="420" Height="820"
+        MinWidth="280" MinHeight="400"
+        Background="#07060F"
+        WindowStartupLocation="CenterOwner">
+  <DockPanel Margin="16">
+    <StackPanel DockPanel.Dock="Top" Spacing="8" Margin="0,0,0,12">
+      <TextBlock Text="{Binding PhoneScreenStatus}" FontSize="16"
+                 TextWrapping="Wrap" Foreground="#F6F1E7" />
+      <TextBlock Text="{Binding RemoteBanner}" FontSize="16" FontWeight="SemiBold"
+                 TextWrapping="Wrap" Foreground="#F5C842"
+                 IsVisible="{Binding BeingControlled}" />
+      <WrapPanel>
+        <Button Content="Control this phone" Classes="accent" Margin="0,0,8,8"
+                Command="{Binding ControlPhoneCommand}"
+                IsVisible="{Binding CanStartPhoneControl}"
+                AutomationProperties.Name="Control this phone" />
+        <Button Content="Disconnect" Classes="quiet" Margin="0,0,8,8"
+                Command="{Binding StopRemoteCommand}"
+                IsVisible="{Binding BeingControlled}"
+                AutomationProperties.Name="Disconnect remote desktop" />
+        <Button Content="Stop" Classes="quiet" Margin="0,0,8,8"
+                Command="{Binding StopRemoteCommand}"
+                IsVisible="{Binding ControllingPhone}"
+                AutomationProperties.Name="Stop remote control" />
+        <Button Content="Back" Classes="quiet" Margin="0,0,8,8"
+                Command="{Binding PhoneBackCommand}"
+                IsVisible="{Binding ControllingPhone}"
+                AutomationProperties.Name="Phone Back" />
+        <Button Content="Home" Classes="quiet" Margin="0,0,8,8"
+                Command="{Binding PhoneHomeCommand}"
+                IsVisible="{Binding ControllingPhone}"
+                AutomationProperties.Name="Phone Home" />
+        <Button Content="Recents" Classes="quiet" Margin="0,0,8,8"
+                Command="{Binding PhoneRecentsCommand}"
+                IsVisible="{Binding ControllingPhone}"
+                AutomationProperties.Name="Phone Recents" />
+      </WrapPanel>
+    </StackPanel>
+    <Image x:Name="PhoneImage" Source="{Binding PhoneScreenImage}" Stretch="Uniform" />
+  </DockPanel>
+</Window>

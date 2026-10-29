@@ -1,0 +1,38 @@
+# Draft for fdroiddata (metadata/org.stellartimelock.stellarsend.yml).
+Categories:
+  - Connectivity
+  - System
+License: GPL-3.0-or-later
+AuthorName: StellarTimeLock
+WebSite: https://flipsend.app
+SourceCode: https://github.com/stellartimelock/flipsend
+IssueTracker: https://github.com/stellartimelock/flipsend/issues
+Changelog: https://github.com/stellartimelock/flipsend/blob/HEAD/CHANGELOG.md
+
+AutoName: FlipSend
+
+RepoType: git
+Repo: https://github.com/stellartimelock/flipsend.git
+
+Builds:
+  - versionName: 1.5.63
+    versionCode: 73
+    commit: v1.5.63
+    subdir: android/app
+    gradle:
+      - sideload
+    gradleprops:
+      - flipsendCloudUpdate=false
+    rm:
+      - desktop
+      - iosApp
+      - composeApp
+      - shared
+      - web
+      - site
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags
+UpdateCheckData: android/app/build.gradle.kts|appVersionCode\s=\s(\d+)|.|versionName\s=\s"([^"]+)"
+CurrentVersion: 1.5.63
+CurrentVersionCode: 73

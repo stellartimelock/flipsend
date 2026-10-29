@@ -1,0 +1,28 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package
+    Name="FlipSend"
+    Manufacturer="Stellar Time Lock"
+    Version="1.5.0.0"
+    UpgradeCode="7c1a9e2e-5b4d-4f0a-9c31-2a6e8d4b71f5"
+    Scope="perUser">
+    <MajorUpgrade DowngradeErrorMessage="A newer version of FlipSend is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+    <Feature Id="Main">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+  </Package>
+
+  <Fragment>
+    <StandardDirectory Id="LocalAppDataFolder">
+      <Directory Id="INSTALLFOLDER" Name="StellarSend" />
+    </StandardDirectory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component>
+        <File Source="StellarSend.exe" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

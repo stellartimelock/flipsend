@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation" />
+    <uses-feature android:name="android.hardware.bluetooth" android:required="false" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission
+        android:name="android.permission.NEARBY_WIFI_DEVICES"
+        android:usesPermissionFlags="neverForLocation" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.UPDATE_PACKAGES_WITHOUT_USER_ACTION" />
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+
+    <permission
+        android:name="org.stellartimelock.send.permission.VAULT_HANDOFF"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="org.stellartimelock.send.permission.VAULT_HANDOFF" />
+
+    <queries>
+        <package android:name="com.google.android.gm" />
+        <package android:name="app.textpipe" />
+        <package android:name="com.stellartimelock.stellarvault" />
+        <intent>
+            <action android:name="android.intent.action.SENDTO" />
+            <data android:scheme="smsto" />
+        </intent>
+        <intent>
+            <action android:name="android.settings.CAST_SETTINGS" />
+        </intent>
+        <intent>
+            <action android:name="android.settings.WIFI_DISPLAY_SETTINGS" />
+        </intent>
+    </queries>
+
+    <application>
+        <service
+            android:name=".TransferService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync|connectedDevice" />
+
+        <service
+            android:name=".ScreenShareService"
+            android:exported="false"
+            android:foregroundServiceType="mediaProjection" />
+
+        <service
+            android:name=".RemoteControlService"
+            android:exported="true"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/remote_control_service" />
+        </service>
+
+        <receiver
+            android:name=".RemoteStopReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".ConsentReceiver"
+            android:exported="false" />
+
+        <service
+            android:name=".CopyToPcService"
+            android:exported="true"
+            android:foregroundServiceType="connectedDevice">
+            <intent-filter>
+                <action android:name="org.stellartimelock.stellarsend.action.COPY_TO_PC" />
+                <action android:name="org.stellartimelock.stellarsend.action.SEND_FILE_TO_PC" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".CopyToPcActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:noHistory="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.StellarSend.Transparent">
+            <intent-filter>
+                <action android:name="org.stellartimelock.stellarsend.action.COPY_TO_PC" />
+                <action android:name="org.stellartimelock.stellarsend.action.SEND_FILE_TO_PC" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".RelayRejoinReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".VaultHandoffActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:noHistory="true"
+            android:permission="org.stellartimelock.send.permission.VAULT_HANDOFF"
+            android:theme="@style/Theme.StellarSend"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="org.stellartimelock.send.action.PUSH_PASSWORD" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".InstallReadyReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".ApkInstallReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="org.stellartimelock.send.action.INSTALL_STATUS" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".AppsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.StellarSend"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ReceivedActivity"
+            android:exported="false"
+            android:theme="@style/Theme.StellarSend"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".PcScreenActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode"
+            android:exported="false"
+            android:screenOrientation="fullUser"
+            android:theme="@style/Theme.StellarSend"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".TextViewerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.StellarSend"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ReceivingActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.StellarSend"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ApkInstallActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:theme="@style/Theme.StellarSend"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ApkInstallStatusActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:noHistory="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.StellarSend.Transparent" />
+
+        <activity
+            android:name=".ApkConfirmActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:noHistory="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.StellarSend.Transparent"
+            android:showOnLockScreen="true" />
+
+        <activity
+            android:name=".ApkUninstallStatusActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:noHistory="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.StellarSend.Transparent" />
+
+        <activity
+            android:name=".SendToPcActivity"
+            android:exported="true"
+            android:label="@string/send_to_pc"
+            android:theme="@style/Theme.StellarSend"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.stellarsend.files"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/stellarsend_file_paths" />
+        </provider>
+    </application>
+</manifest>

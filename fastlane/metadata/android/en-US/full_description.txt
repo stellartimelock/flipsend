@@ -1,0 +1,12 @@
+FlipSend sends files, photos, videos, and text between your Android phone and your Windows PC.
+
+* Pair once with a QR code. No account, no ads, no tracking.
+* Same Wi-Fi is tried first. Transfers use mutual TLS between your own devices.
+* If Wi-Fi can't connect, FlipSend can use an encrypted relay. The relay only forwards locked bytes and can't read your files. The relay server is open source in the same repository, and you can point the app at your own relay.
+* Remote desktop: see and use your Windows PC from the phone, over your existing pairing.
+* Share this screen: show the phone on the PC. Android asks first, every time.
+* Apps sent from your PC can install on the phone (Android may still ask you to confirm).
+
+You need the FlipSend Windows app on the PC. It is in the same repository.
+
+FlipSend is free and open source (GPL-3.0-or-later).

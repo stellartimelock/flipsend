@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="space_bg">#07060F</color>
+    <color name="space_card">#110F1A</color>
+    <color name="space_text">#F6F1E7</color>
+    <color name="space_muted">#C9C0B2</color>
+    <color name="space_accent">#F5C842</color>
+    <color name="space_on_accent">#1A1400</color>
+    <color name="space_quiet">#1F5EEAD4</color>
+    <color name="space_line">#12F6F1E7</color>
+    <color name="space_teal">#5EEAD4</color>
+    <color name="space_danger">#F2A3A3</color>
+    <color name="space_stroke">#38F6F1E7</color>
+    <color name="icon_background">#000000</color>
+    <color name="dash_bg">#07060F</color>
+    <color name="dash_surface">#110F1A</color>
+    <color name="dash_cream">#F6F1E7</color>
+    <color name="dash_gold">#F5C842</color>
+    <color name="dash_gold_ink">#1A1400</color>
+    <color name="dash_teal">#5EEAD4</color>
+    <color name="dash_muted">#C9C0B2</color>
+    <color name="dash_danger">#F2A3A3</color>
+</resources>

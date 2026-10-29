@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FlipSend invite</title>
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  <main class="hero">
+    <h1>FlipSend invite</h1>
+    <p class="lede">This code works once. Install FlipSend, open Settings, and tap Enter invite.</p>
+    <p id="code" class="price"></p>
+    <p class="note small">The code expires in 24 hours. If you do not have FlipSend yet, install it first, then enter the code.</p>
+  </main>
+  <script>
+    const code = new URLSearchParams(location.search).get('code') || ''
+    document.getElementById('code').textContent = code.replace(/[^A-Za-z0-9]/g, '').toUpperCase()
+  </script>
+</body>
+</html>

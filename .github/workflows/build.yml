@@ -1,0 +1,90 @@
+name: build
+
+on:
+  # MANUAL ONLY (Actions tab -> Run workflow, or: gh workflow run <file> -R stellartimelock/<REPO>).
+  # Day-to-day builds happen on the PC (pc-build/build-apk.sh) to save Actions minutes.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  desktop-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - name: Test desktop core
+        run: dotnet test desktop/StellarSend.slnx -c Release
+
+  web-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Test web crypto interop
+        working-directory: web
+        run: node --test test/interop.test.mjs
+
+  windows-exe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - name: Publish portable executable
+        run: >
+          dotnet publish desktop/src/StellarSend.App/StellarSend.App.csproj
+          -c Release -r win-x64 --self-contained true
+          -p:PublishSingleFile=true
+          -p:IncludeNativeLibrariesForSelfExtract=true
+          -p:EnableCompressionInSingleFile=true
+          -o ${{ github.workspace }}\dist
+      - name: Build per-user MSI installer
+        shell: pwsh
+        run: |
+          dotnet tool install --global wix --version 5.0.2
+          $env:PATH = "$env:USERPROFILE\.dotnet\tools;$env:PATH"
+          wix build desktop/installer/Package.wxs -b dist -o dist/StellarSend.msi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: StellarSend-win-x64
+          path: |
+            dist/StellarSend.exe
+            dist/StellarSend.msi
+          if-no-files-found: error
+          retention-days: 7
+
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - uses: android-actions/setup-android@v3
+        with:
+          # v3's old default also installs the removed 'tools' package, which makes sdkmanager fail.
+          packages: 'platform-tools'
+      - name: Install Android SDK packages
+        run: |
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager "platforms;android-36" "build-tools;35.0.0"
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Test core and assemble sideload
+        working-directory: android
+        run: |
+          set -euo pipefail
+          # Release stays unsigned here, like the F-Droid build. No keys are made or used.
+          ./gradlew clean :core:test :app:testSideloadDebugUnitTest \
+            :app:assembleSideloadDebug :app:assembleSideloadRelease -PflipsendCloudUpdate=false --stacktrace

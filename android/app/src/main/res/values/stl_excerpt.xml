@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- StellarTimeLock Aurora Glass. These tokens belong to the promo excerpt only. -->
+    <color name="stl_bg">#0A0E17</color>
+    <color name="stl_accent">#5E9FFF</color>
+    <color name="stl_gold">#E8B84A</color>
+    <color name="stl_text">#F4F8FF</color>
+    <color name="stl_sheen">#335E9FFF</color>
+    <color name="stl_stroke">#805E9FFF</color>
+    <color name="stl_muted">#9BB0C9</color>
+    <color name="glass_ok">#3DDC97</color>
+    <color name="glass_ok_bg">#143D32</color>
+    <color name="glass_chip_bg">#12263F</color>
+
+    <style name="Theme.StellarTimeLock.Excerpt" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/stl_accent</item>
+        <item name="colorOnPrimary">@color/stl_bg</item>
+        <item name="colorSecondary">@color/stl_gold</item>
+        <item name="colorSurface">@color/stl_bg</item>
+        <item name="colorOnSurface">@color/stl_text</item>
+        <item name="android:colorBackground">@color/stl_bg</item>
+        <item name="android:textColor">@color/stl_text</item>
+        <item name="android:textColorPrimary">@color/stl_text</item>
+        <item name="android:textColorSecondary">@color/stl_text</item>
+        <item name="android:forceDarkAllowed">false</item>
+    </style>
+</resources>

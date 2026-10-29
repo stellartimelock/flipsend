@@ -1,0 +1,98 @@
+{
+  "notes": "Free relay fallback caps. The relay reads this file. FlipSend does not sell these as purchases. fairUseGb is the free monthly allowance (0.1 GB = 100 MB). eliteRelayGb is the permanent Elite allowance. freePoolGb is the monthly cap for every free account together. freeRateMbPerMin is the per-user free rate. Env vars on the relay override these without an app update.",
+  "currency": "USD",
+  "wifiTransfers": "unlimited",
+  "egressUsdPerGb": 0.15,
+  "playFeeRate": 0.15,
+  "bytesPerGb": 1000000000,
+  "fairUseGb": 0.1,
+  "eliteRelayGb": 1,
+  "freePoolGb": 50,
+  "freeRateMbPerMin": 5,
+  "appPriceUsd": 2.9999,
+  "packageName": "org.stellartimelock.stellarsend",
+  "plans": [
+    {
+      "id": "free",
+      "name": "Free",
+      "usd": 2.9999,
+      "relayGb": 0.1,
+      "includedWithApp": true,
+      "recommended": false
+    },
+    {
+      "id": "pro",
+      "name": "Pro",
+      "usd": 2.99,
+      "relayGb": 10,
+      "includedWithApp": false,
+      "recommended": false
+    },
+    {
+      "id": "plus",
+      "name": "Plus",
+      "usd": 5.99,
+      "relayGb": 30,
+      "includedWithApp": false,
+      "recommended": true
+    },
+    {
+      "id": "max",
+      "name": "Max",
+      "usd": 11.99,
+      "relayGb": 60,
+      "includedWithApp": false,
+      "recommended": false
+    }
+  ],
+  "tiers": [
+    {
+      "id": "free",
+      "title": "Free",
+      "productId": null,
+      "basePlanId": null,
+      "priceUsd": 0,
+      "relayGb": 0.1,
+      "local": "Unlimited",
+      "pcIncluded": "Included",
+      "speed": "Full speed",
+      "recommended": false
+    },
+    {
+      "id": "pro",
+      "title": "Pro",
+      "productId": "relay_pro",
+      "basePlanId": "monthly",
+      "priceUsd": 2.99,
+      "relayGb": 10,
+      "local": "Unlimited",
+      "pcIncluded": "Included",
+      "speed": "Full speed",
+      "recommended": false
+    },
+    {
+      "id": "plus",
+      "title": "Plus",
+      "productId": "relay_plus",
+      "basePlanId": "monthly",
+      "priceUsd": 5.99,
+      "relayGb": 30,
+      "local": "Unlimited",
+      "pcIncluded": "Included",
+      "speed": "Full speed",
+      "recommended": true
+    },
+    {
+      "id": "max",
+      "title": "Max",
+      "productId": "relay_max",
+      "basePlanId": "monthly",
+      "priceUsd": 11.99,
+      "relayGb": 60,
+      "local": "Unlimited",
+      "pcIncluded": "Included",
+      "speed": "Full speed",
+      "recommended": false
+    }
+  ]
+}

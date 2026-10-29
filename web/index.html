@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0B1020">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="FlipSend">
+  <title>FlipSend — phone to PC, no cloud</title>
+  <meta name="description" content="FlipSend moves files between your Android phone and Windows PC over a direct encrypted link. Pair once with a QR code. No account, no cloud storage. Free and open source.">
+  <link rel="canonical" href="https://flipsend.stellartimelock.com/">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="/css/app.css?v=11">
+  <meta property="og:title" content="FlipSend — phone to PC, no cloud">
+  <meta property="og:description" content="Direct, encrypted file transfer between your Android phone and Windows PC. No account. Free and open source.">
+  <meta property="og:image" content="https://flipsend.stellartimelock.com/img/flipsend-icon.png">
+  <meta property="og:url" content="https://flipsend.stellartimelock.com/">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="/"><img src="/img/flipsend-icon.png" alt="" width="32" height="32">FlipSend</a>
+    <nav class="top-links" aria-label="FlipSend">
+      <a href="#features">Features</a>
+      <a href="#price">Free</a>
+      <a class="wide" href="https://stellartimelock.com">StellarTimeLock</a>
+    </nav>
+  </header>
+  <main>
+    <section id="landing" class="hero">
+      <img class="hero-icon" src="/img/flipsend-icon.png" alt="FlipSend app icon" width="96" height="96">
+      <h1>Phone to PC. No cloud.</h1>
+      <p class="lede">Send photos, videos, and files between your Android phone and Windows PC over a direct, encrypted link. Pair once with a QR code. No account.</p>
+      <div class="store">
+        <span class="play-badge play-soon" role="img" aria-label="Coming soon to F-Droid">Coming soon to F-Droid</span>
+      </div>
+      <div class="actions hero-actions">
+        <button id="connectIphone" class="accent" type="button">Connect with iPhone</button>
+      </div>
+      <p class="note small">On an iPhone, this page is the app. Scan, send, done. Nothing is saved after the session.</p>
+    </section>
+
+    <section id="app" hidden>
+      <section class="card">
+        <h2 id="status" hidden></h2>
+        <p id="peerLine" hidden></p>
+        <p id="usageLine" hidden></p>
+        <p id="progress" hidden></p>
+
+        <div id="connectArea" class="pair-box">
+          <canvas id="qr" aria-label="Code"></canvas>
+          <video id="camera" hidden playsinline></video>
+          <div class="actions">
+            <button id="scanCode" class="accent" type="button">Scan a code</button>
+            <button id="stopScan" type="button" hidden>Stop</button>
+            <button id="photoBtn" type="button" hidden>Photo</button>
+          </div>
+          <div class="actions">
+            <input id="typeCode" type="text" placeholder="Type a code" aria-label="Type a pairing code" autocomplete="off">
+            <button id="pairTyped" type="button">Pair</button>
+          </div>
+          <p class="note small">Relay cap is 100 MB a month, 5 MB a minute, and 48 MB per file in this browser. The 50 GB figure is the shared pool, not yours. It resets on the 1st.</p>
+          <input id="photo" type="file" accept="image/*" hidden>
+        </div>
+
+        <div id="connectedArea" hidden>
+          <div class="actions">
+            <button id="forget" type="button">Disconnect</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="sendCard" hidden>
+        <input id="files" type="file" accept="image/*,video/*,*/*" multiple hidden>
+        <div class="actions">
+          <button id="pickFile" class="accent" type="button">File</button>
+          <button id="showText" type="button">Text</button>
+        </div>
+        <p id="chosenName" hidden></p>
+        <div id="sendHow" class="actions" hidden>
+          <button id="sendFiles" class="accent" type="button">Send</button>
+        </div>
+        <div id="textBox" hidden>
+          <textarea id="text" rows="3"></textarea>
+          <div class="actions">
+            <button id="sendText" class="accent" type="button">Send</button>
+          </div>
+        </div>
+        <button id="retry" type="button" hidden>Retry</button>
+      </section>
+
+      <section class="card" id="inboxCard" hidden>
+        <div id="inbox"></div>
+      </section>
+    </section>
+
+    <section id="features">
+      <ul class="features">
+        <li><strong>Phone to PC, no cloud.</strong> Files go straight between your devices. Nothing is stored online, and there is no account.</li>
+        <li><strong>Direct encrypted link.</strong> Same Wi-Fi is direct and unlimited. Away from home, the relay passes along ciphertext, about 100 MB a month. Wi-Fi transfers still work when that is used up.</li>
+        <li><strong>Remote desktop.</strong> See and use your PC screen from your phone.</li>
+        <li><strong>Works with VPNs.</strong> Wi-Fi first, then the encrypted relay. No ads or analytics.</li>
+      </ul>
+    </section>
+
+    <section id="price">
+      <h2 class="section">Free</h2>
+      <p class="price"><strong>Free</strong> and open source. Coming soon to F-Droid.</p>
+      <p class="note small soon">Bot Link is a free companion app.</p>
+    </section>
+
+    <footer class="foot">
+      <nav aria-label="Legal">
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="mailto:stellartimelock@gmail.com">Support</a>
+      </nav>
+      <p class="small">From StellarTimeLock · <a href="https://stellartimelock.com">stellartimelock.com</a></p>
+    </footer>
+
+    <div id="ask" class="ask" hidden>
+      <div class="card">
+        <h2 id="askTitle"></h2>
+        <p id="askBody" hidden></p>
+        <div class="actions">
+          <button id="askYes" class="accent" type="button">Allow</button>
+          <button id="askNo" type="button">Decline</button>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="/js/qrcode.js?v=11"></script>
+  <script src="/js/jsQR.js?v=11"></script>
+  <script type="module" src="/js/app.js?v=11"></script>
+</body>
+</html>

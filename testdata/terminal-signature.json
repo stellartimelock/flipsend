@@ -1,0 +1,7 @@
+{
+  "id": "22222222-2222-2222-2222-222222222222",
+  "command": "echo hi",
+  "confirmed": false,
+  "spki": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEhLDqCc2L0gCjpirBz2qWBYvmF-JV4Ijp4i9Wd0JaiHz3BSplTGF52LF3jlqZmpcx3XSvnAFV0NSkEl90vD0FYA",
+  "sig": "MEUCIQDpTb2liACQU3Nj5yyJUg6JVZuBff0hKit5DLtXJWb8xAIgNlDF-sIt3TaN1rPyQze_xYKvAVxb7Fu8v18Lq3AiqvE"
+}
