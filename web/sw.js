@@ -1,4 +1,4 @@
-const CACHE = 'flipsend-web-11'
+const CACHE = 'flipsend-web-12'
 const ASSETS = [
   '/',
   '/index.html',

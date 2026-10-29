@@ -12,11 +12,11 @@ The page speaks the same pairing protocol and the same TLS 1.2 session as the An
 
 The folder is already static. `node --test test/interop.test.mjs` checks the crypto and frame format. It is not part of the Pages build.
 
-`_headers` sets `nosniff` and a no-cache policy for the service worker. A proxy in front of the site must pass those headers through. This build uses cache name `flipsend-web-11` and fetches HTML/JS/CSS from the network first so an old passphrase page cannot stick.
+`_headers` sets `nosniff` and a no-cache policy for the service worker. A proxy in front of the site must pass those headers through. This build uses cache name `flipsend-web-12` and fetches HTML/JS/CSS from the network first so an old passphrase page cannot stick.
 
 ## Landing and pairing
 
-The first screen is the app landing: the FlipSend icon, a "Coming soon to F-Droid" badge, features, and a Free section. FlipSend is free and open source, and Bot Link is a free companion app. There is no Google Play listing. Privacy and terms live at `/privacy` and `/terms`. **Connect with iPhone** opens the existing QR + Scan flow.
+The first screen is the app landing: the FlipSend icon, a "Coming soon to F-Droid" badge, features, and a Free section. FlipSend is free and open source, and Bot Link is a free companion app. There is no Google Play listing. Source code links in the Free section and footer go to the public repos github.com/stellartimelock/flipsend and github.com/stellartimelock/botlink. Privacy and terms live at `/privacy` and `/terms`. **Connect with iPhone** opens the existing QR + Scan flow.
 
 QR pairing is one-time. Scan, choose how to send, done. The session then ends. There is no lasting browser passphrase, biometric lock, or saved pairing. A fresh identity is made for that visit.
 
