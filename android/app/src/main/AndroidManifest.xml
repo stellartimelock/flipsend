@@ -3,9 +3,11 @@
 
     <queries>
         <package android:name="com.stellartimelock" />
+        <package android:name="moe.shizuku.privileged.api" />
     </queries>
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
@@ -30,5 +32,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".RemoveOldAppActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <provider
+            android:name="rikka.shizuku.ShizukuProvider"
+            android:authorities="${applicationId}.shizuku"
+            android:enabled="true"
+            android:exported="true"
+            android:multiprocess="false"
+            android:permission="android.permission.INTERACT_ACROSS_USERS_FULL" />
     </application>
 </manifest>

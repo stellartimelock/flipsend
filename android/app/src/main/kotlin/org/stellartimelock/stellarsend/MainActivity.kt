@@ -176,6 +176,9 @@ class MainActivity : AppCompatActivity() {
         }
         findViewById<Button>(R.id.openReceived).setOnClickListener { openReceived() }
         findViewById<Button>(R.id.openReceivedSettings).setOnClickListener { openReceived() }
+        findViewById<Button>(R.id.openRemoveOldApp).setOnClickListener {
+            startActivity(Intent(this, RemoveOldAppActivity::class.java))
+        }
         wireTile(R.id.tileSend, R.id.addFile)
         wireTile(R.id.tileApps, R.id.tabApps)
         wireTile(R.id.tileReceived, R.id.openReceived)
