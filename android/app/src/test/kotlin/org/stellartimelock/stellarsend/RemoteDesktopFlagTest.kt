@@ -27,9 +27,9 @@ import org.stellartimelock.send.core.RemoteDesktopGate
 class RemoteDesktopFlagTest {
     @Test
     fun versionCodeIsTheSingleBuild() {
-        assertEquals("1.5.63", BuildConfig.VERSION_NAME)
+        assertEquals("1.5.64", BuildConfig.VERSION_NAME)
         assertTrue(BuildConfig.REMOTE_DESKTOP)
-        assertEquals(73, BuildConfig.VERSION_CODE)
+        assertEquals(74, BuildConfig.VERSION_CODE)
     }
 
     @Test

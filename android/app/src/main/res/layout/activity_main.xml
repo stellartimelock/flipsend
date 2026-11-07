@@ -1551,6 +1551,14 @@
                     android:contentDescription="Received files"
                     android:text="Open received files" />
 
+                <Button
+                    android:id="@+id/openRemoveOldApp"
+                    style="@style/Widget.Stellar.Row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="Remove old app copy"
+                    android:text="Remove old app copy" />
+
                 <TextView
                     android:id="@+id/inboxLabel"
                     android:layout_width="match_parent"

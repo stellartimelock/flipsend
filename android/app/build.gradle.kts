@@ -4,7 +4,7 @@ plugins {
 }
 
 // Single build. Google Play builds were dropped for F-Droid (Oct 28 2026).
-val appVersionCode = 73
+val appVersionCode = 74
 
 base.archivesName.set("FlipSend")
 
@@ -17,7 +17,7 @@ android {
         minSdk = 26
         targetSdk = 36
         versionCode = appVersionCode
-        versionName = "1.5.63"
+        versionName = "1.5.64"
     }
 
     buildFeatures {
@@ -75,6 +75,8 @@ dependencies {
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.activity:activity-ktx:1.9.3")
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+    implementation("dev.rikka.shizuku:api:13.1.5")
+    implementation("dev.rikka.shizuku:provider:13.1.5")
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.robolectric:robolectric:4.17")
